@@ -19,7 +19,7 @@ app.use('/uploads', express.static('uploads'));
 // Replace with your actual MongoDB URI if different, or use a local one.
 // For this 'ready-to-use' replica, we'll try to connect to a local instance or a standard dummy string.
 // Ideally, this should be configurable.
-mongoose.connect('mongodb://127.0.0.1:27017/himalayan_collections', {
+mongoose.connect('mongodb+srv://amangupta17262_db_user:yx4qMUxXsbzj2iND@himalayan.se2rgd3.mongodb.net/himalayan_collections', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => console.log('MongoDB Connected'))
