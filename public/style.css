@@ -1,0 +1,116 @@
+/* public/style.css */
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f8f9fa;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #adb5bd;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #6c757d;
+}
+
+/* Typography */
+body {
+    font-family: 'Outfit', sans-serif;
+    color: #212529;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: -0.02em;
+}
+
+.text-golden {
+    color: #c5a059;
+}
+
+/* Navbar */
+.navbar-brand {
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Hero Carousel */
+.hero-img {
+    height: 60vh;
+    object-fit: cover;
+    filter: brightness(0.7);
+}
+
+.carousel-caption {
+    bottom: 20%;
+}
+
+@media (min-width: 992px) {
+    .hero-img {
+        height: 70vh;
+    }
+}
+
+/* Vehicle Cards */
+.vehicle-card {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.vehicle-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175) !important;
+}
+
+.vehicle-card img {
+    transition: transform 0.5s ease;
+}
+
+.vehicle-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Buttons */
+.btn-dark {
+    background-color: #1a1a1a;
+    border-color: #1a1a1a;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.btn-dark:hover {
+    background-color: #333;
+}
+
+.btn-outline-dark {
+    border-width: 2px;
+    font-weight: 600;
+}
+
+/* Detail View */
+.img-wrapper {
+    overflow: hidden;
+}
+
+.hover-zoom:hover {
+    transform: scale(1.02);
+    transition: transform 0.5s ease;
+}
+
+/* Footer */
+#footer h5 {
+    border-bottom: 2px solid #c5a059;
+    display: inline-block;
+    padding-bottom: 5px;
+}
