@@ -1,6 +1,7 @@
 // public/app.js
 
 const API_BASE = '/api';
+const DEFAULT_IMAGE = '/assets/placeholder.png';
 const contentDiv = document.getElementById('main-content');
 let currentVehicles = [];
 
@@ -19,7 +20,8 @@ function showDetail(vehicle) {
     template.querySelector('#detail-title').textContent = vehicle.title;
     template.querySelector('#detail-price').textContent = formatPrice(vehicle.price);
     template.querySelector('#detail-desc').textContent = vehicle.description;
-    template.querySelector('#detail-image').src = vehicle.mainImage || 'https://via.placeholder.com/800x500?text=No+Image';
+    template.querySelector('#detail-image').src = vehicle.mainImage || DEFAULT_IMAGE;
+    template.querySelector('#detail-image').onerror = (e) => e.target.src = DEFAULT_IMAGE;
     template.querySelector('#inq-vehicle-id').value = vehicle._id;
 
     // Render Dynamic Specs
@@ -86,7 +88,7 @@ function renderGrid(vehicles) {
             <div class="card h-100 shadow-sm border-0 vehicle-card overflow-hidden" onclick='fetchAndShowDetail("${v._id}")' style="cursor: pointer;">
                 <div class="position-relative overflow-hidden">
                      <span class="position-absolute top-0 start-0 bg-dark text-white px-2 py-1 small m-2 rounded" style="z-index:10; opacity:0.8;">ID: ${displayId}</span>
-                     <img src="${v.mainImage || 'https://via.placeholder.com/400x250?text=No+Image'}" class="card-img-top" alt="${v.title}" style="height: 250px; object-fit: cover;">
+                     <img src="${v.mainImage || DEFAULT_IMAGE}" class="card-img-top" alt="${v.title}" style="height: 250px; object-fit: cover;" onerror="this.src='${DEFAULT_IMAGE}'">
                 </div>
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-start mb-2">

@@ -142,6 +142,51 @@ app.post('/api/admin/add', adminAuth, upload.single('mainImage'), async (req, re
     }
 });
 
+// PUT Admin Update Vehicle
+app.put('/api/admin/vehicles/:id', adminAuth, upload.single('mainImage'), async (req, res) => {
+    try {
+        const { title, brand, type, price, description, specifications } = req.body;
+        const updates = {
+            title,
+            brand,
+            type,
+            price: Number(price),
+            description,
+            specifications: JSON.parse(specifications || '{}')
+        };
+
+        if (req.file) {
+            updates.mainImage = '/uploads/' + req.file.filename;
+        }
+
+        const vehicle = await Vehicle.findByIdAndUpdate(req.params.id, updates, { new: true });
+        if (!vehicle) return res.status(404).json({ error: 'Vehicle not found' });
+        res.json({ message: 'Vehicle updated successfully', vehicle });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// DELETE Admin Delete Vehicle
+app.delete('/api/admin/vehicles/:id', adminAuth, async (req, res) => {
+    try {
+        const vehicle = await Vehicle.findByIdAndDelete(req.params.id);
+        if (!vehicle) return res.status(404).json({ error: 'Vehicle not found' });
+
+        // Optionally delete image from filesystem
+        if (vehicle.mainImage) {
+            const imgPath = path.join(__dirname, vehicle.mainImage);
+            if (fs.existsSync(imgPath)) {
+                fs.unlinkSync(imgPath);
+            }
+        }
+
+        res.json({ message: 'Vehicle deleted successfully' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // POST Inquiry
 app.post('/api/inquiry', async (req, res) => {
     try {

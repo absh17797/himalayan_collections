@@ -78,6 +78,11 @@
                             Add Vehicle
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" onclick="switchTab('manage-vehicles', this)">
+                            Manage Vehicles
+                        </a>
+                    </li>
                     <li>
                         <a class="nav-link" onclick="switchTab('inquiries', this)">
                             View Inquiries
@@ -91,25 +96,27 @@
             <!-- Content -->
             <div class="flex-grow-1 p-5 overflow-auto" style="height: 100vh;">
 
-                <!-- Add Vehicle Section -->
+                <!-- Add/Edit Vehicle Section -->
                 <div id="tab-add-vehicle">
-                    <h2 class="fw-bold mb-4">Add New Vehicle</h2>
+                    <h2 class="fw-bold mb-4" id="form-title">Add New Vehicle</h2>
                     <div class="card shadow-sm border-0">
                         <div class="card-body p-4">
-                            <form onsubmit="handleAddVehicle(event)">
+                            <form id="vehicle-form" onsubmit="handleVehicleSubmit(event)">
+                                <input type="hidden" name="id" id="vehicle-id">
                                 <div class="row">
                                     <div class="col-md-4 mb-3">
                                         <label class="form-label">Title</label>
-                                        <input type="text" class="form-control" name="title" required>
+                                        <input type="text" class="form-control" name="title" id="form-title-input"
+                                            required>
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <label class="form-label">Brand</label>
-                                        <input type="text" class="form-control" name="brand"
+                                        <input type="text" class="form-control" name="brand" id="form-brand-input"
                                             placeholder="e.g. Tata, Mahindra" required>
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <label class="form-label">Type</label>
-                                        <select class="form-select" name="type" required>
+                                        <select class="form-select" name="type" id="form-type-select" required>
                                             <option value="2-wheeler">2 Wheeler</option>
                                             <option value="4-wheeler">4 Wheeler</option>
                                         </select>
@@ -117,23 +124,59 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Price</label>
-                                    <input type="number" class="form-control" name="price" required>
+                                    <input type="number" class="form-control" name="price" id="form-price-input"
+                                        required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Description</label>
-                                    <textarea class="form-control" name="description" rows="3" required></textarea>
+                                    <textarea class="form-control" name="description" id="form-desc-input" rows="3"
+                                        required></textarea>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Main Image</label>
-                                    <input type="file" class="form-control" name="mainImage" accept="image/*" required>
+                                    <input type="file" class="form-control" name="mainImage" id="form-image-input"
+                                        accept="image/*">
+                                    <div id="current-image-preview" class="mt-2" style="display: none;">
+                                        <small class="text-muted d-block">Current Image:</small>
+                                        <img src="" height="50" class="rounded mt-1 border">
+                                    </div>
                                 </div>
                                 <hr class="my-4">
                                 <h5 class="fw-bold mb-3">Specifications</h5>
                                 <div id="specs-container"></div>
                                 <button type="button" class="btn btn-outline-secondary mb-4 btn-sm"
                                     onclick="addSpecInput()">+ Add Custom Feature</button>
-                                <button type="submit" class="btn btn-success w-100 py-2">Publish Vehicle</button>
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-success flex-grow-1 py-2"
+                                        id="submit-btn">Publish Vehicle</button>
+                                    <button type="button" class="btn btn-secondary py-2 px-4" id="cancel-edit-btn"
+                                        style="display: none;" onclick="resetForm()">Cancel</button>
+                                </div>
                             </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manage Vehicles Section -->
+                <div id="tab-manage-vehicles" style="display: none;">
+                    <h2 class="fw-bold mb-4">Manage Listings</h2>
+                    <div class="card shadow-sm border-0">
+                        <div class="card-body p-0">
+                            <table class="table table-hover mb-0" id="vehicles-table">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Title</th>
+                                        <th>Brand</th>
+                                        <th>Type</th>
+                                        <th>Price</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Vehicles loaded here -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
