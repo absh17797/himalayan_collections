@@ -38,6 +38,51 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
         }
 
+        .navbar-brand {
+            white-space: normal;
+            max-width: 75%;
+            line-height: 1.2;
+        }
+
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.1rem;
+                max-width: 65%;
+            }
+
+            .navbar-brand span {
+                display: block;
+                font-size: 0.85rem;
+                opacity: 0.8;
+            }
+        }
+
+        /* Carousel Content Mobile Fix */
+        .carousel-caption {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 15px;
+            bottom: 20%;
+            left: 5%;
+            right: 5%;
+            backdrop-filter: blur(5px);
+        }
+
+        @media (max-width: 768px) {
+            .carousel-caption h1 {
+                font-size: 1.8rem;
+            }
+
+            .carousel-caption p {
+                font-size: 0.9rem;
+            }
+
+            .carousel-item img {
+                height: 400px !important;
+                object-fit: cover;
+            }
+        }
+
         @media (max-width: 576px) {
             .floating-call-btn {
                 bottom: 20px;
@@ -60,8 +105,9 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand animate__animated animate__fadeInLeft" href="#" onclick="showHome()">Karan
-                Used Vehicle and Insurance Services</a>
+            <a class="navbar-brand animate__animated animate__fadeInLeft" href="#" onclick="showHome()">
+                <strong class="text-golden">Karan</strong> <span>Used Vehicle and Insurance Services</span>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -101,7 +147,7 @@
                 <div class="carousel-item active" data-bs-interval="4000">
                     <img src="https://images.unsplash.com/photo-1542362567-b07e54358753?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
                         class="d-block w-100 hero-img" alt="Certified Used Cars">
-                    <div class="carousel-caption d-none d-md-block animate__animated animate__fadeInUp">
+                    <div class="carousel-caption animate__animated animate__fadeInUp">
                         <h1 class="display-3 fw-bold">Certified Used Cars</h1>
                         <p class="lead">Premium pre-owned 4-wheelers for every journey.</p>
                     </div>
@@ -109,14 +155,14 @@
                 <div class="carousel-item" data-bs-interval="4000">
                     <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
                         class="d-block w-100 hero-img" alt="Quality Used Bikes">
-                    <div class="carousel-caption d-none d-md-block animate__animated animate__fadeInUp">
+                    <div class="carousel-caption animate__animated animate__fadeInUp">
                         <h1 class="display-3 fw-bold">Quality Used Bikes</h1>
                         <p class="lead">Unleash power with our checked and certified 2-wheelers.</p>
                     </div>
                 </div>
                 <div class="carousel-item" data-bs-interval="4000">
                     <img src="/assets/insurance.png" class="d-block w-100 hero-img" alt="Insurance Services">
-                    <div class="carousel-caption d-none d-md-block animate__animated animate__fadeInUp">
+                    <div class="carousel-caption animate__animated animate__fadeInUp">
                         <h1 class="display-3 fw-bold">Insurance Services</h1>
                         <p class="lead">Protecting your ride with reliable insurance plans.</p>
                     </div>
@@ -124,7 +170,7 @@
                 <div class="carousel-item" data-bs-interval="4000">
                     <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
                         class="d-block w-100 hero-img" alt="Quality Fleet Background">
-                    <div class="carousel-caption d-none d-md-block animate__animated animate__fadeInUp">
+                    <div class="carousel-caption animate__animated animate__fadeInUp">
                         <h1 class="display-3 fw-bold">Karan Used Vehicle and Insurance Services</h1>
                         <p class="lead">Where reliability meets value.</p>
                     </div>
