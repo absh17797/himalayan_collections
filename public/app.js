@@ -107,8 +107,8 @@ function renderGrid(vehicles) {
 function formatPrice(price) {
     if (!price) return 'N/A';
     const s = price.toString();
-    if (s.length <= 2) return '$' + s;
-    return '$' + s.substring(0, 2) + '*'.repeat(s.length - 2);
+    if (s.length <= 2) return '$' + '*'.repeat(s.length);
+    return '$' + '**' + s.substring(2);
 }
 
 function filterVehicles(type) {
