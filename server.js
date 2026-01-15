@@ -66,19 +66,8 @@ const adminAuth = (req, res, next) => {
     }
 };
 
-// Storage Config for Multer
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        const dir = './uploads';
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir);
-        }
-        cb(null, dir);
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
-});
+// Storage Config for Multer (Memory Storage for Base64)
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // API Endpoints
@@ -125,13 +114,18 @@ app.post('/api/admin/add', adminAuth, upload.single('mainImage'), async (req, re
             }
         }
 
+        let mainImageBase64 = '';
+        if (req.file) {
+            mainImageBase64 = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
+        }
+
         const newVehicle = new Vehicle({
             title,
             brand,
             type,
             price,
             description,
-            mainImage: req.file ? '/uploads/' + req.file.filename : '',
+            mainImage: mainImageBase64,
             specifications: parsedSpecs
         });
 
@@ -156,7 +150,7 @@ app.put('/api/admin/vehicles/:id', adminAuth, upload.single('mainImage'), async 
         };
 
         if (req.file) {
-            updates.mainImage = '/uploads/' + req.file.filename;
+            updates.mainImage = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
         }
 
         const vehicle = await Vehicle.findByIdAndUpdate(req.params.id, updates, { new: true });
@@ -172,14 +166,6 @@ app.delete('/api/admin/vehicles/:id', adminAuth, async (req, res) => {
     try {
         const vehicle = await Vehicle.findByIdAndDelete(req.params.id);
         if (!vehicle) return res.status(404).json({ error: 'Vehicle not found' });
-
-        // Optionally delete image from filesystem
-        if (vehicle.mainImage) {
-            const imgPath = path.join(__dirname, vehicle.mainImage);
-            if (fs.existsSync(imgPath)) {
-                fs.unlinkSync(imgPath);
-            }
-        }
 
         res.json({ message: 'Vehicle deleted successfully' });
     } catch (err) {
